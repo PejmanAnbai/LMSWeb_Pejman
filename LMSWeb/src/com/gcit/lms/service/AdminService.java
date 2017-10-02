@@ -208,6 +208,22 @@ public class AdminService {
 		
 		return null;
 	}
+	public List<Genre> readGenres() throws SQLException{
+		Connection conn = null;
+		try {
+			conn = util.getConnection();
+			GenreDAO adao = new GenreDAO(conn);
+			return adao.readGenres();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally{
+			if(conn!=null){
+				conn.close();
+			}
+		}
+		
+		return null;
+	}
 	public List<Genre> readGenres(String searchString, Integer pageNo) throws SQLException{
 		Connection conn = null;
 		try {
@@ -386,11 +402,13 @@ public class AdminService {
 			BookDAO bdao = new BookDAO(conn);
 			if(book.getBookId()!=null){
 				bdao.updateBook(book);
+				bdao.deleteBookGenre(book);
 				bdao.deleteBookAuthor(book);
 			}else{
 				int id = bdao.saveBookID(book);
 				book.setBookId(id);
 			}
+			bdao.saveBookGenre(book);
 			bdao.saveBookAuthor(book);
 			conn.commit();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {

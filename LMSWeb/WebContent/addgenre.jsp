@@ -12,7 +12,7 @@ List<Book> books = service.readBooks();
 	${statusMessage}
 		<br/>Enter Genre Name: <input type="text" name="genre_name"><br />
 		Select Books from list Below: <br/>
-		<select multiple="multiple" size="10" name="bookIds">
+		<select multiple class="form-control" multiple="multiple" size="10" name="bookIds">
 			<option value="">Select Book to associate</option>
 			<%for(Book b: books) {%>
 			<option value=<%=b.getBookId()%>><%=b.getTitle() %></option>

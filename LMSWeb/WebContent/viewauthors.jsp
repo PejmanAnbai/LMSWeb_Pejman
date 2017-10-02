@@ -13,6 +13,11 @@ Integer totalCount = service.getAuthorsCount();
 	}else{
 		numOfPages = totalCount/10;
 	}
+	int pageIndex = 0;
+	if(request.getParameter("pageNo")!=null)
+		pageIndex = Integer.parseInt(request.getParameter("pageNo"));
+	else
+		pageIndex = 1;
 	List<Author> authors = new ArrayList<>();
 	if(request.getAttribute("authors")!=null){
 		authors = (List<Author>)request.getAttribute("authors");
@@ -29,14 +34,14 @@ Integer totalCount = service.getAuthorsCount();
 	<h1>List of Authors in LMS&nbsp;&nbsp;&nbsp;&nbsp; Total Authors in LMS: <%=totalCount%> Authors</h1>
 	<nav aria-label="Page navigation example">
 		<ul class="pagination">
-			<li class="page-item"><a class="page-link" href="#"
+			<li class="page-item"><a class="page-link" href="<%if(pageIndex<=numOfPages && pageIndex>1){%>pageAuthors?pageNo=<%=pageIndex-1%><%} %>"
 				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
 					class="sr-only">Previous</span>
 			</a></li>
 			<%for(int i=1; i<=numOfPages; i++){ %>
 			<li class="page-item"><a class="page-link" href="pageAuthors?pageNo=<%=i%>"><%=i%></a></li>
 			<%} %>
-			<li class="page-item"><a class="page-link" href="#"
+			<li class="page-item"><a class="page-link" href="<%if(pageIndex<numOfPages){%>pageAuthors?pageNo=<%=pageIndex+1%><%} %>"
 				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
 					class="sr-only">Next</span>
 			</a></li>

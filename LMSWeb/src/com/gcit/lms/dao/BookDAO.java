@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.gcit.lms.entity.Author;
 import com.gcit.lms.entity.Book;
+import com.gcit.lms.entity.Genre;
 import com.gcit.lms.entity.LibraryBranch;
 
 public class BookDAO extends BaseDAO <Book>{
@@ -24,9 +25,20 @@ public class BookDAO extends BaseDAO <Book>{
 			save("INSERT INTO tbl_book_authors VALUES (?, ?)", new Object[] { book.getBookId(), a.getAuthorId()});
 		}
 	}
+	public void saveBookGenre(Book book) throws SQLException {
+		for (Genre b : book.getGenres()) {
+			save("INSERT INTO tbl_book_genres VALUES (?, ?)", new Object[] {b.getGenreId(), book.getBookId() });
+		}
+	}
+
 	public void deleteBookAuthor(Book book) throws SQLException {
 		for(Author a: book.getAuthors()){
 			save(" DELETE FROM tbl_book_authors WHERE bookId = ? AND authorId = ?", new Object[] { book.getBookId(), a.getAuthorId()});
+		}
+	}
+	public void deleteBookGenre(Book book) throws SQLException {
+		for(Genre a: book.getGenres()){
+			save(" DELETE FROM tbl_book_genres WHERE bookId = ? AND genre_id = ?", new Object[] { book.getBookId(), a.getGenreId()});
 		}
 	}
 //	public void saveBookPublisher(Book book) throws SQLException {

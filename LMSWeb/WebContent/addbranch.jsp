@@ -13,7 +13,7 @@ List<Book> books = service.readBooks();
 		<br/>Enter Library Branch Name: <input type="text" name="branchName"><br />
 		<br/>Enter Library Branch Address: <input type="text" name="branchAddress"><br />
 		Select Books from list Below to associate with the Branch: <br/>
-		<select multiple="multiple" size="10" name="bookIds">
+		<select multiple class="form-control" multiple="multiple" size="10" name="bookIds">
 			<option value="">Select Book to associate</option>
 			<%for(Book b: books) {%>
 			<option value=<%=b.getBookId()%>><%=b.getTitle() %></option>

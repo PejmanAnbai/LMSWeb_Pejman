@@ -32,7 +32,7 @@ public class BookLoansDAO extends BaseDAO <BookLoans>{
 //	}
 
 	public void updateDueDate(BookLoans bookLoans) throws SQLException {
-		save("UPDATE tbl_book_loans SET dueDate = ? WHERE bookId = ? AND branchId = ? AND cardNo = ?", new Object[] {bookLoans.getDueDate() , bookLoans.getBook().getBookId(), bookLoans.getLibraryBranch().getBranchId(), bookLoans.getBorrower().getCardNo() });
+		save("UPDATE tbl_book_loans SET dueDate = dueDate + INTERVAL ? DAY WHERE bookId = ? AND branchId = ? AND cardNo = ?;", new Object[] {bookLoans.getDueDate() , bookLoans.getBook().getBookId(), bookLoans.getLibraryBranch().getBranchId(), bookLoans.getBorrower().getCardNo() });
 	}
 	public void updateDateIn(BookLoans bookLoans) throws SQLException {
 		save("UPDATE tbl_book_loans SET dateIn = curdate() WHERE bookId = ? AND branchId = ? AND cardNo = ?", new Object[] { bookLoans.getBook().getBookId(), bookLoans.getLibraryBranch().getBranchId(), bookLoans.getBorrower().getCardNo() });
@@ -46,7 +46,7 @@ public class BookLoansDAO extends BaseDAO <BookLoans>{
 	}
 
 	public List<BookLoans> readAllBookLoans() throws SQLException {
-		return readAll("SELECT * FROM tbl_book_loans", null);
+		return readAll("SELECT * FROM tbl_book_loans WHERE dateIn IS NULL", null);
 	}
 	
 	public List<BookLoans> readBooksByTitle(String bookTitle, String branchName, String borrowerName) throws SQLException {

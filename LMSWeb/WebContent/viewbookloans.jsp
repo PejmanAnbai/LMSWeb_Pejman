@@ -15,6 +15,11 @@
 	}else{
 		numOfPages = totalCount/10;
 	}
+	int pageIndex = 0;
+	if(request.getParameter("pageNo")!=null)
+		pageIndex = Integer.parseInt(request.getParameter("pageNo"));
+	else
+		pageIndex = 1;
 	List<BookLoans> bookLoans = new ArrayList<>();
 	if(request.getAttribute("bookLoans")!=null){
 		bookLoans = (List<BookLoans>)request.getAttribute("bookLoans");
@@ -31,14 +36,14 @@
 	<h1>List of Book Loans in LMS&nbsp;&nbsp;&nbsp;&nbsp; Total Borrowers in LMS: <%=totalCount%> Book Loans</h1>
 	<nav aria-label="Page navigation example">
 		<ul class="pagination">
-			<li class="page-item"><a class="page-link" href="#"
+			<li class="page-item"><a class="page-link" href="<%if(pageIndex<=numOfPages && pageIndex>1){%>pageBookLoans?pageNo=<%=pageIndex-1%><%} %>"
 				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
 					class="sr-only">Previous</span>
 			</a></li>
 			<%for(int i=1; i<=numOfPages; i++){ %>
 			<li class="page-item"><a class="page-link" href="pageBookLoans?pageNo=<%=i%>"><%=i%></a></li>
 			<%} %>
-			<li class="page-item"><a class="page-link" href="#"
+			<li class="page-item"><a class="page-link" href="<%if(pageIndex<numOfPages){%>pageBookLoans?pageNo=<%=pageIndex+1%><%} %>"
 				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
 					class="sr-only">Next</span>
 			</a></li>
@@ -53,6 +58,8 @@
 			<th>Date Out</th>
 			<th>Due Date</th>
 			<th>Date In</th>
+			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 		<%
 		for (BookLoans a : bookLoans) {
@@ -78,9 +85,9 @@
 				if(temp3!= null){
 					out.println(temp3);
 				}%></td>
-			<td><button type="button"
+			<td><%if(a.getDateIn()==null){ %><button type="button"
 					onclick="javascript:location.href='editduedate.jsp?bookId=<%=a.getBook().getBookId()%>&branchId=<%=a.getLibraryBranch().getBranchId()%>&borrowerId=<%=a.getBorrower().getCardNo()%>'"
-					class="btn btn-primary btn-sm">Edit</button></td>
+					class="btn btn-primary btn-sm">Edit</button><%} %></td>
 			<td><button type="button"
 					onclick="javascript:location.href='deleteBookLoan?bookId=<%=a.getBook().getBookId()%>&branchId=<%=a.getLibraryBranch().getBranchId()%>&borrowerId=<%=a.getBorrower().getCardNo()%>'"
 					class="btn btn-danger btn-sm">Delete</button></td>

@@ -15,7 +15,7 @@ List<Book> books = service.readBooks();
 		<br/>Enter Author Name to Edit: <input type="text" name="authorName" value="<%=author.getAuthorName()%>"><br />
 		<input type="hidden" name="authorId" value="<%=author.getAuthorId()%>">
 		Select Books from list Below: <br/>
-		<select multiple="multiple" size="10" name="bookIds">
+		<select multiple class="form-control" multiple="multiple" size="10" name="bookIds">
 			<option value="">Select Book to associate</option>
 			<%for(Book b: books) {%>
 

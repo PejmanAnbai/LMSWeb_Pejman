@@ -32,7 +32,7 @@ public class LibraryBranchDAO extends BaseDAO <LibraryBranch>{
 	}
 	public void saveBranchBooks(LibraryBranch libraryBranch) throws SQLException {
 		for(Book b: libraryBranch.getBooks()){
-			save("INSERT INTO tbl_book_copies VALUES (?, ?, ?)", new Object[] { b.getBookId(), libraryBranch.getBranchId(), });
+			save("INSERT INTO tbl_book_copies VALUES (?, ?, 5)", new Object[] { b.getBookId(), libraryBranch.getBranchId() });
 		}
 	}
 	

@@ -559,6 +559,18 @@ public class AdminServlet extends HttpServlet {
 						authors.add(temp);
 					}
 					book.setAuthors(authors);
+					
+				}
+				String[] genreIds = request.getParameterValues("genreIds");
+				List<Genre> genres = new ArrayList<>();
+				if (genreIds != null) {
+					for (int i = 0; i < genreIds.length; i++) {
+						Genre temp = new Genre();
+						temp.setGenreId(Integer.parseInt(genreIds[i]));
+						genres.add(temp);
+					}
+					book.setGenres(genres);
+					
 				}
 				if (editMode) {
 					book.setBookId(Integer.parseInt(request.getParameter("bookId")));
@@ -624,7 +636,7 @@ public class AdminServlet extends HttpServlet {
 				message = "Number of days cannot be more than 11 digits";
 				redirectUrl = "/viewbookloans.jsp";
 			} else {
-				loans.setDueDate("curdate() + INTERVAL "+ request.getParameter("duedate") +" DAY");
+				loans.setDueDate(request.getParameter("duedate"));
 //				List<Author> authors = new ArrayList<>();
 //				if (authorIds != null) {
 //					for (int i = 0; i < authorIds.length; i++) {

@@ -1,11 +1,13 @@
 <%@include file="include.html"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.gcit.lms.entity.Author"%>
+<%@page import="com.gcit.lms.entity.Genre"%>
 <%@page import="com.gcit.lms.entity.Publisher"%>
 <%@page import="java.util.List"%>
 <%@page import="com.gcit.lms.service.AdminService"%>
 <%AdminService service = new AdminService();
 List<Author> authors = service.readAuthors();
+List<Genre> genres = service.readGenres();
 List<Publisher> publishers = service.readPublishers();
 %>
 <div class="container">
@@ -14,21 +16,25 @@ List<Publisher> publishers = service.readPublishers();
 	${statusMessage}
 		<br/>Enter Book Title: <input type="text" name="title"><br />
 		Select Authors from list Below: <br/>
-		<select multiple="multiple" size="10" name="authorIds">
-			<option value="">Select Author to associate</option>
+		<select multiple class="form-control" multiple="multiple" size="10" name="authorIds">
 			<%for(Author a: authors) {%>
 			<option value=<%=a.getAuthorId()%>><%=a.getAuthorName() %></option>
 			<%} %>
-		</select>
+		</select><br/>
+			Select Genres from list Below: <br/>
+			<select multiple class="form-control" multiple="multiple" size="10" name="genreIds">
+				<%for(Genre a: genres) {%>
+				<option value=<%=a.getGenreId()%>><%=a.getGenreName() %></option>
+				<%} %>
+			</select>
 		<br/>
 		Select a Publisher from list Below: <br/>
-		<select size="10" name="publisherId">
-			<option value="">Select Publisher to associate</option>
+		<select size="1" name="publisherId">
 			<%for(Publisher a: publishers) {%>
 			<option value=<%=a.getPublisherId()%>><%=a.getPublisherName() %></option>
 			<%} %>
 		</select>
 		<br/>
-		<button type="submit" class="btn btn-primary btn-md">Save Book</button>
+		<button type="submit" class="btn btn-primary btn-md">Save Book</button><br/>
 	</form>
 </div>

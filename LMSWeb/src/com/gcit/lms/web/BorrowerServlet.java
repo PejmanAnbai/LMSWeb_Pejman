@@ -85,7 +85,6 @@ public class BorrowerServlet extends HttpServlet{
 			b.setBookId(Integer.parseInt(request.getParameter("bookId")));
 			l.setBranchId(branchId);
 			br.setCardNo(cardNo);
-			System.out.println(request.getParameter("bookId") + " " + branchId+ " "+cardNo);
 			try {
 				borrowerService.returnBook(l, b, br);
 			} catch (SQLException e) {
@@ -105,7 +104,6 @@ public class BorrowerServlet extends HttpServlet{
 			b.setBookId(Integer.parseInt(request.getParameter("bookId")));
 			l.setBranchId(branchId);
 			br.setCardNo(cardNo);
-			System.out.println(request.getParameter("bookId") + " " + branchId+ " "+cardNo);
 			try {
 				if(borrowerService.readNoOfCopies(b, l) != null && borrowerService.readNoOfCopies(b, l) > 0)
 				{

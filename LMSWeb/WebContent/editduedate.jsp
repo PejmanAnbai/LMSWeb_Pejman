@@ -16,15 +16,17 @@
 	<h1>Edit DueDate</h1>
 	<form method="post" action="editBookLoans">
 		${statusMessage} <br />Enter a new due date: <input type="text"
-			name="duedate" value="<%=bookLoans.getDueDate()%>"><br /> <input
+			name="duedate" value=""><br /> <input
 			type="hidden" name="bookId"
 			value="<%=bookLoans.getBook().getBookId()%>"> <input
 			type="hidden" name="branchId"
 			value="<%=bookLoans.getLibraryBranch().getBranchId()%>"> <input
 			type="hidden" name="borrowerId"
 			value="<%=bookLoans.getBorrower().getCardNo()%>">
+
 		<button type="submit" class="btn btn-primary btn-md">Update
 			DueDate</button>
+	
 	</form>
 
 </div>

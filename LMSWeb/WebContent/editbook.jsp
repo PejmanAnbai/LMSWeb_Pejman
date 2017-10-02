@@ -1,5 +1,6 @@
 <%@page import="com.gcit.lms.entity.Author"%>
 <%@page import="com.gcit.lms.entity.Book"%>
+<%@page import="com.gcit.lms.entity.Genre"%>
 <%@page import="com.gcit.lms.entity.Publisher"%>
 <%@page import="java.util.List"%>
 <%@include file="include.html"%>
@@ -7,6 +8,7 @@
 <%AdminService service = new AdminService();
 Book book = service.readBookByPK(Integer.parseInt(request.getParameter("bookId")));
 List<Author> authors = service.readAuthors();
+List<Genre> genres = service.readGenres();
 List<Publisher> publishers = service.readPublishers();
 %>
 
@@ -16,15 +18,22 @@ List<Publisher> publishers = service.readPublishers();
 		${statusMessage}
 		<br/>Enter Book Title to Edit: <input type="text" name="title" value="<%=book.getTitle()%>"><br />
 		Select Authors from list Below: <br/>
-		<select multiple="multiple" size="10" name="authorIds">
+		<select multiple class="form-control" multiple="multiple" size="10" name="authorIds">
 			<option value="">Select Author to associate</option>
 			<%for(Author a: authors) {%>
 
 				<option value=<%=a.getAuthorId()%> <%if((a.getBooks()).contains(book)){%>selected<%}%>><%=a.getAuthorName() %></option>
 			<%} %>
 		</select> <br/>
+		<br/>
+		Select Genres from list Below: <br/>
+		<select multiple class="form-control" multiple="multiple" size="10" name="genreIds">
+			<%for(Genre a: genres) {%>
+			<option value=<%=a.getGenreId()%> <%if(a.getBooks().contains(book)){ %>selected<%}%>><%=a.getGenreName() %></option>
+			<%} %>
+		</select><br/>
 		Select a Publisher from list Below: <br/>
-		<select size="10" name="publisherId">
+		<select size="1" name="publisherId">
 			<option value="">Select Publisher to associate</option>
 			<%for(Publisher a: publishers) {%>
 			<option value=<%=a.getPublisherId()%> <%if(a.getBooks().contains(book)){ %>selected<%}%>><%=a.getPublisherName() %></option>

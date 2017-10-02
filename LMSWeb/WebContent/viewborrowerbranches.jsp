@@ -14,6 +14,11 @@
 	}else{
 		numOfPages = totalCount/10;
 	}
+	int pageIndex = 0;
+	if(request.getParameter("pageNo")!=null)
+		pageIndex = Integer.parseInt(request.getParameter("pageNo"));
+	else
+		pageIndex = 1;
 	List<LibraryBranch> branches = new ArrayList<>();
 	if(request.getAttribute("branches")!=null){
 		branches = (List<LibraryBranch>)request.getAttribute("branches");
@@ -30,14 +35,14 @@
 	<h1>List of Library Branches in LMS&nbsp;&nbsp;&nbsp;&nbsp; Total Branches in LMS: <%=totalCount%> Library Branches</h1>
 	<nav aria-label="Page navigation example">
 		<ul class="pagination">
-			<li class="page-item"><a class="page-link" href="#"
+			<li class="page-item"><a class="page-link" href="<%if(pageIndex<=numOfPages && pageIndex>1){%>pageBorrowerBranch?pageNo=<%=pageIndex-1%><%} %>"
 				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
 					class="sr-only">Previous</span>
 			</a></li>
 			<%for(int i=1; i<=numOfPages; i++){ %>
 			<li class="page-item"><a class="page-link" href="pageBorrowerBranch?pageNo=<%=i%>"><%=i%></a></li>
 			<%} %>
-			<li class="page-item"><a class="page-link" href="#"
+			<li class="page-item"><a class="page-link" href="<%if(pageIndex<numOfPages){%>pageBorrowerBranch?pageNo=<%=pageIndex+1%><%} %>"
 				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
 					class="sr-only">Next</span>
 			</a></li>

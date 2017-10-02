@@ -130,8 +130,6 @@ public class LibrarianServlet extends HttpServlet {
 
 	private String editCopies(HttpServletRequest request, HttpServletResponse response, String redirectUrl) {
 		if (request.getParameter("branchId") != null) {
-			System.out.println(request.getParameter("branchId"));
-			System.out.println(branchId);
 			request.setAttribute("branchId", branchId);
 			redirectUrl = "viewlibrarianbranchbooks.jsp";
 		}
@@ -148,8 +146,6 @@ public class LibrarianServlet extends HttpServlet {
 
 		return redirectUrl;
 	}
-
-
 
 	private String editLibrarianBranch(HttpServletRequest request, String redirectUrl) {
 		String message = "Branch Edited Sucessfully";

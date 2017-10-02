@@ -54,7 +54,11 @@ public class GenreDAO extends BaseDAO <Genre> {
 		}
 		
 	}
-	
+	public List<Genre> readGenres() throws SQLException {
+
+		return readAll("SELECT * FROM tbl_genre", null);
+
+	}
 	public List<Genre> readGenresByName(String genreName) throws SQLException {
 		genreName = "%"+ genreName +"%";
 		return readAll("SELECT * FROM tbl_genre WHERE genre_name like ?", new Object[]{genreName});
